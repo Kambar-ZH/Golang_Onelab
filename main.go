@@ -11,4 +11,6 @@ func main() {
 	fmt.Println(utils.Upper("This is the second second"))
 
 	fmt.Println(utils.Square(25))
+
+	fmt.Println(utils.GetUUID())
 }

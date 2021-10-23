@@ -4,3 +4,7 @@ github.com/Kambar-ZH/Golang_Onelab v1.0.0 h1:862broAZz8ThFU8FoDjym5fmSDanE3JKIfy
 github.com/Kambar-ZH/Golang_Onelab v1.0.0/go.mod h1:fQ/Z5cTnw5kc+/ci2n/zvDUhvjDLaWFIsbVD1eEeD0U=
 github.com/Kambar-ZH/Golang_Onelab v1.0.1 h1:5oabpr1Zaw5qkmzIw6iL6pL2YtjPsVz7TzgusZKm2h8=
 github.com/Kambar-ZH/Golang_Onelab v1.0.1/go.mod h1:fQ/Z5cTnw5kc+/ci2n/zvDUhvjDLaWFIsbVD1eEeD0U=
+github.com/Kambar-ZH/Golang_Onelab v1.0.2 h1:E2tbGmGOhhffzSXux3HbF37p0BTzNTJX6E8p04fdVXY=
+github.com/Kambar-ZH/Golang_Onelab v1.0.2/go.mod h1:4XC7lUfKockWNu5pN/ITceygTsYOI7rgwZrIeS51YFA=
+github.com/twharmon/gouid v0.3.0 h1:IQ6Zx0ozy2PCNdPNZ/PLjN+Z6BFPUbELq0/SL0sxCJE=
+github.com/twharmon/gouid v0.3.0/go.mod h1:Ruorlc0y7P3Dy3IwLks8m6Rt96O+inLQO3El93ShqdU=
