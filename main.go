@@ -7,6 +7,8 @@ import (
 )
 
 func main() {
-	fmt.Println(strings.Lower("This is the first part"))
-	fmt.Println(strings.Upper("This is the second second"))
+	fmt.Println(utils.Lower("This is the first part"))
+	fmt.Println(utils.Upper("This is the second second"))
+
+	fmt.Println(utils.Square(25))
 }
