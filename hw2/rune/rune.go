@@ -1,0 +1,24 @@
+package rune
+
+import "fmt"
+
+var (
+	errIndex = fmt.Errorf("index out of string length")
+)
+
+func RuneByIndex(s *string, i *int) (rune, error) {
+	runes := []rune(*s)
+	if *i < 0 || *i >= len(runes) {
+		return 0, errIndex
+	}
+	return runes[*i], nil
+}
+
+func TestRuneByIndex(str string) {
+	fmt.Printf("\n---testing runeByIndex function\n")
+	runes := []rune(str)
+	for i := -1; i <= len(runes); i++ {
+		r, err := RuneByIndex(&str, &i)
+		fmt.Printf("%d %c %v\n", i, r, err)
+	}
+}
