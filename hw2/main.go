@@ -11,5 +11,5 @@ func main() {
 	// reverse.ReverseTest()
 	// filemanager.TestSortFileImports("./file_manager/test_file.go")
 	// fibonacci.TestFibonacci()
-	rune.TestRuneByIndex("Hello Алихан")
+	rune.TestRuneByIndex("")
 }
