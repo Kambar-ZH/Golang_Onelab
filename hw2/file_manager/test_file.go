@@ -1,9 +1,9 @@
 package filemanager
 
 import (
-	"sort"
-	"math"
 	"fmt"
+	"math"
+	"sort"
 )
 
 func Do() {
