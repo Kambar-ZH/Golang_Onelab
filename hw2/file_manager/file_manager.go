@@ -70,7 +70,7 @@ func SortFileImports(fileName string) error {
 
 func TestSortFileImports(fileName string) {
 	// test_file.go is unsorted before call of the function
-	fmt.Printf("\n---testing fibonacci function\n")
+	fmt.Printf("\n---testing sortFileImports function\n")
 	err := SortFileImports(fileName)
 	if err != nil {
 		fmt.Println(err)
