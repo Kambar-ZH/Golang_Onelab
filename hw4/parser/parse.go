@@ -49,32 +49,36 @@ func ParseFields(obj reflect.Value, data map[string]interface{}, parseTag string
 	return nil
 }
 
-func ParseUsers(rawJson []byte, parseTag string) []*models.User {
+func ParseUsers(rawJson []byte, parseTag string) ([]*models.User, error) {
 	var rawData []map[string]interface{}
 	if err := json.Unmarshal(rawJson, &rawData); err != nil {
-		panic(err)
+		return nil, err
 	}
 	var users []*models.User
 	for _, data := range rawData {
 		user := &models.User{}
 		obj := reflect.ValueOf(user).Elem()
-		ParseFields(obj, data, parseTag)
+		if err := ParseFields(obj, data, parseTag); err != nil {
+			return nil, err
+		}
 		users = append(users, user)
 	}
-	return users
+	return users, nil
 }
 
-func ParsePosts(rawXml []byte, parseTag string) []*models.Post {
+func ParsePosts(rawXml []byte, parseTag string) ([]*models.Post, error) {
 	var rawData []map[string]interface{}
 	if err := json.Unmarshal(rawXml, &rawData); err != nil {
-		panic(err)
+		return nil, err
 	}
 	var posts []*models.Post
 	for _, data := range rawData {
 		post := &models.Post{}
 		obj := reflect.ValueOf(post).Elem()
-		ParseFields(obj, data, parseTag)
+		if err := ParseFields(obj, data, parseTag); err != nil {
+			return nil, err
+		}
 		posts = append(posts, post)
 	}
-	return posts
+	return posts, nil
 }

@@ -13,6 +13,7 @@ func TestParseUsers(t *testing.T) {
 		parseTag string
 		json     []byte
 		users    []*models.User
+		equal 	 bool
 	}{
 		{
 			parseTag: "json",
@@ -52,12 +53,27 @@ func TestParseUsers(t *testing.T) {
 					Age: 32,
 				},
 			},
+			equal: true,
+		},
+		{
+			parseTag: "json",
+			json: []byte(`[
+	  {
+		  "corrupted": true,
+	]`),
+			users: nil,
+			equal: true,
 		},
 	}
 	for _, testCase := range testCases {
-		var users []*models.User = ParseUsers(testCase.json, testCase.parseTag)
-		assert.Equal(t, testCase.users, users,
-			fmt.Sprintf("Incorrect parsing.\nExpected %v.\nGot: %v", testCase.users, users))
+		users, _ := ParseUsers(testCase.json, testCase.parseTag)
+		if testCase.equal {
+			assert.Equal(t, testCase.users, users,
+				fmt.Sprintf("Incorrect parsing.\nExpected %v.\nGot: %v", testCase.users, users))
+		} else {
+			assert.NotEqual(t, testCase.users, users,
+				fmt.Sprintf("Incorrect parsing.\nNot expected to be %v.\nGot: %v", testCase.users, users))
+		}
 	}
 }
 
@@ -66,6 +82,7 @@ func TestParsePosts(t *testing.T) {
 		parseTag string
 		json     []byte
 		posts    []*models.Post
+		equal    bool
 	}{
 		{
 			parseTag: "xml",
@@ -117,11 +134,69 @@ func TestParsePosts(t *testing.T) {
 					},
 				},
 			},
+			equal: true,
+		},
+		{
+			parseTag: "xml",
+			json: []byte(`[
+	  {
+		"id": 1,
+		"title": "Codeforces Div2 753 Round",
+		"content": "Welcome to the best CF round",
+		"editorial": {
+			"contest_id": "753",
+			"authors": [
+				{
+					"author_id": "202",
+					"name": "Yerzhan",
+					"surname": "Ismailov",
+					"created_problems_count": 22.0
+				},
+				{
+					"author_id": "250",
+					"name": "Yerzhan",
+					"surname": "Ismailov",
+					"created_problems_count": "10"
+				}
+			]
+		}
+	  }
+	]`),
+			posts: []*models.Post{
+				{
+					Id: 1,
+					Title: "Codeforces Div2 753 Round",
+					Content: "Welcome to the best CF round",
+					Editorial: models.Editorial {
+						ContestID: 100000,
+						Authors: []models.Author{
+							{
+								AuthorID: 100000,
+								Name: "Yerzhan",
+								Surname: "Ismailov",
+								CreatedProblemsCount: 100000,
+							},
+							{
+								AuthorID: 100000,
+								Name: "Yerzhan",
+								Surname: "Ismailov",
+								CreatedProblemsCount: 100000,
+							},
+						},
+					},
+				},
+			},
+			equal: false,
 		},
 	}
 	for _, testCase := range testCases {
-		var posts []*models.Post = ParsePosts(testCase.json, testCase.parseTag)
-		assert.Equal(t, testCase.posts, posts,
-			fmt.Sprintf("Incorrect parsing.\nExpected %v.\nGot: %v", testCase.posts, posts))
+		posts, _ := ParsePosts(testCase.json, testCase.parseTag)
+		if testCase.equal {
+			assert.Equal(t, testCase.posts, posts,
+				fmt.Sprintf("Incorrect parsing.\nExpected %v.\nGot: %v", testCase.posts, posts))
+		} else {
+			assert.NotEqual(t, testCase.posts, posts,
+				fmt.Sprintf("Incorrect parsing.\nNot expected to be %v.\nGot: %v", testCase.posts, posts))
+		}
 	}
 }
