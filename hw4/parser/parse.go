@@ -15,7 +15,7 @@ func ParseFields(obj reflect.Value, data map[string]interface{}, parseTag string
 		if value, ok := data[tagName]; ok {
 			newValue := reflect.ValueOf(value)
 			switch field.Kind() {
-			case reflect.Int, reflect.Int64, reflect.Int32:
+			case reflect.Int, reflect.Int32, reflect.Int64:
 				switch newValue.Kind() {
 				case reflect.String:
 					num, err := strconv.Atoi(newValue.String())
@@ -30,13 +30,13 @@ func ParseFields(obj reflect.Value, data map[string]interface{}, parseTag string
 
 				}
 			case reflect.Slice:
-				newSlice := reflect.MakeSlice(reflect.TypeOf([]models.Author{}), newValue.Len(), newValue.Len())
+				newSlice := reflect.MakeSlice(field.Type(), newValue.Len(), newValue.Len())
 				for j := 0; j < newValue.Len(); j++ {
 					if err := ParseFields(newSlice.Index(j), newValue.Index(j).Interface().(map[string]interface{}), parseTag); err != nil {
 						return err
 					}
-					field.Set(newSlice)
 				}
+				field.Set(newSlice)
 			case reflect.Struct:
 				if err := ParseFields(field, newValue.Interface().(map[string]interface{}), parseTag); err != nil {
 					return err
