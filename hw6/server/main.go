@@ -47,11 +47,11 @@ func NewServer(addr string) *Server {
 	s := &Server{
 		quit: make(chan interface{}),
 	}
-	l, err := net.Listen("tcp", addr)
+	ln, err := net.Listen("tcp", addr)
 	if err != nil {
 		log.Fatal(err)
 	}
-	s.listener = l
+	s.listener = ln
 	s.wg.Add(1)
 	go s.serve()
 	return s
@@ -91,12 +91,11 @@ func main() {
 	s := NewServer(config.UrlAddress)
 	c := make(chan os.Signal)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
-    wg := sync.WaitGroup{}
-    wg.Add(1)
+    s.wg.Add(1)
 	go func() {
 		<-c
         s.Stop()
-		wg.Done()
+		s.wg.Done()
 	}()
-    wg.Wait()
+    s.wg.Wait()
 }
