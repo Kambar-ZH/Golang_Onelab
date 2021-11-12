@@ -1,0 +1,1 @@
+In order to be more userfriendly and not harm user experience the server waits until all clients abort their connection, and only after gracefully terminates.
